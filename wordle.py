@@ -1,7 +1,10 @@
 # TASK A: Define a variable 'word' that holds the correct word for the wordle game
-
+word = "Slice"
 
 # TASK B: Define a function 'makeAGuess()' that passes in a users guess as a parameter
+def makeAGuess(users_guess):
+  if users_guess == word:
+    print("yipee")
 
 
   # TASK C:Define a variable 'hint' that holds an empty string

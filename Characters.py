@@ -15,7 +15,7 @@ class NPC:
         print()
         
 class enemy():
-    def __init__(self, name, attack_DMG, attack_PW)
+    def __init__(self, name, attack_DMG, attack_PW):
         self.name = name
         self.attack_DMG = attack_DMG
         self.attack_PW = attack_PW
@@ -50,3 +50,6 @@ def menu(choices):
         print(cursor.down()*(len(choices)-pos)+cursor.show())
         return number
     stdout.flush()
+
+def shop():
+  

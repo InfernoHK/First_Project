@@ -3,7 +3,8 @@ from sys import stdout
 from getkey import getkey, keys
 from ansi.color import fg
 from ansi import cursor
-
+import random
+from Player import game_player
 
 
 class NPC:
@@ -52,4 +53,7 @@ def menu(choices):
     stdout.flush()
 
 def shop():
-  
+  print("\n")
+  beginning25 = ["Hey, Welcome to the shop. I couldnt bother to tell you my name, but you can call me Bob. I'm a shopkeeper, and I'm selling some stuff.","Hello, you can call me bob, this is my shop, I'm selling some stuff.","Hey, I'm bob, I'm a shopkeeper, and I'm selling some stuff."]
+  beginning50 = ["Hello, welcome back " + player_name]
+  beginning75

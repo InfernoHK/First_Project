@@ -1,4 +1,4 @@
-class Player:
+class game_player:
     def __init__(self, name, health, inventory, AP, AD, gold):
         self.name = name
         self.health = health
@@ -6,4 +6,7 @@ class Player:
         self.AP = AP
         self.AD = AD
         self.gold = gold
+        name = input("What is your name Citizen? ")
+        
+
        

@@ -33,8 +33,12 @@ def main_menu():
       
 def Start ():
     os.system('clear')
+    
+    print("You awake in this world, you don't know who you are, or where you are from. You don't know anything about this world. You don't even know your name. You are just a stranger in a strange land.")
     new_player = game_player("", 100, [], 0, 10, 25)
     print("Okay " + new_player.name + " Welcome, Let me tell you a little about this world. It is a world filled with magic and excitment")
+    print("\n")
+    
     main_movement()
     print(menu_sys)
 
@@ -45,7 +49,7 @@ def Options():
     print("\n")
     choice = menu(["Start","Options", "Controls","Exit", "Credits"])
     if choice == 1:
-        menu_sys.append(start)
+        menu_sys.append(Start)
         Start()
         
     elif choice == 2:
@@ -74,7 +78,7 @@ def Controls():
     print("\n")
     choice = menu(["Start","Options", "Controls","Exit", "Credits"])
     if choice == 1:
-        menu_sys.append(start)
+        menu_sys.append(Start)
         Start()
         
     elif choice == 2:
@@ -111,7 +115,7 @@ def Credits():
     print("\n")
     choice = menu(["Start","Options", "Controls","Exit", "Credits"])
     if choice == 1:
-        menu_sys.append(start)
+        menu_sys.append(Start)
         Start()
         
     elif choice == 2:

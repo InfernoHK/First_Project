@@ -1,12 +1,14 @@
 class game_player:
     def __init__(self, name, health, inventory, AP, AD, gold):
-        self.name = name
+        print("*He's right, what is my name?*")
+        self.name = input("What is Your Name You Have Chosen Citizen? ")
         self.health = health
         self.inventory = inventory
         self.AP = AP
         self.AD = AD
         self.gold = gold
-        name = input("What is your name Citizen? ")
+        
+        
         
 
        

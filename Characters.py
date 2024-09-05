@@ -5,8 +5,11 @@ from ansi.color import fg
 from ansi import cursor
 import random
 from Player import game_player
+from menusys import main_menu 
 import menusys
-import menusys
+
+
+
 
 
 class NPC:
@@ -61,3 +64,6 @@ def shop():
   beginning25 = ["Hey, Welcome to the shop. I couldnt bother to tell you my name or remember yours for a matter of fact, but you can call me Cass. I'm a shopkeeper, and I'm selling some stuff.","Hello, you can call me Cass, this is my shop, I'm selling some stuff.","Hey, I'm Cass, I'm a shopkeeper, and I'm selling some stuff."]
   beginning50 = ["Hello, welcome back " + menusys.new_player.name +"Here's what I got","Hey Friend, Here's What I Got Today"]
   beginning75 = ["Hey It's"]
+  print(random.choice(beginning25))
+  main_movement()
+  

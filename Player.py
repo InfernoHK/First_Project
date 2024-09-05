@@ -7,6 +7,8 @@ class game_player:
         self.AP = AP
         self.AD = AD
         self.gold = gold
+        self.day = 1
+        self.actions = 0
         
         
         

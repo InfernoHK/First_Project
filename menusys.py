@@ -7,6 +7,7 @@ menu_sys_list = []
 global turn_timer 
 
 def main_menu():
+    
     while menu_sys_list == []:
         menu_sys_list.append(main_menu)
         choice = menu(["Start","Options", "Controls","Exit", "Credits"])
@@ -89,7 +90,7 @@ def Controls():
     print("Press Any Key to Continue When Dialouge is Done")
     print("Arrow Keys to Maneuver Choice Selection")
     print("Enter to Select Choice")
-    print("Type Inventory when in game to view your inventory")
+    print("Select Inventory to Open Inventory")
     print("\n")
     choice = menu(["Start","Options", "Controls","Exit", "Credits"])
     if choice == 1:
@@ -153,10 +154,31 @@ def main_movement():
     print("\n")
     choices = ["Shop", "Dungeon", "Inn", "Main Menu","Back"]
     if menu(choices) == 1:
-        shop()
+        if new_player.actions < 5:
+            new_player.actions += 1
+            shop()
+        else:
+            print("The Shop is Currently Closed")
     elif choices == 2:
-        print("You have entered the dungeon")
+        if new_player.actions < 5:
+            new_player.actions += 1
+            print("You have entered the dungeon")
+            #dungeon func
+        else:
+            print("Your are too tired to enter the dungeon")
+
+    
     elif choices == 3:
+        end_day()
         print("You have entered the inn")
     elif choices == 4:
+        print()
+        #inn func
+    elif choices == 5:
         main_menu()
+    
+    def end_day():
+        new_player.day += 1
+        new_player.actions = 0
+        print("You have Rested at the inn and started a new day, It is now day " + str(new_player.day))
+        main_movement()

@@ -7,6 +7,12 @@ menu_sys_list = []
 global turn_timer 
 
 
+def end_day():
+        new_player.day += 1
+        new_player.actions = 0
+        print("You have Rested at the inn and started a new day, It is now day " + str(new_player.day))
+        main_movement()
+
 def main_menu():
    
     if menu_sys_list == []:
@@ -156,36 +162,36 @@ def Credits():
 
 def main_movement():
     print("\n")
-    choices = ["Shop", "Dungeon", "Inn", "Main Menu","Back"]
+    choices = ["Shop", "Dungeon", "Inn", "Main Menu",]
     choice = menu(choices)
     print(choice)
-    if choice == 1:
-        if new_player.actions < 5:
+    if choice == 4:
+            main_menu()
+    elif new_player.actions < 5:
+        if choice == 1:
             new_player.actions += 1
             shop()
-        else:
-            print("The Shop is Currently Closed")
-    elif choice == 2:
-        print ("hi")
-        if new_player.actions < 5:
+        
+            
+        elif choice == 2:
             new_player.actions += 1
             print("You have entered the dungeon")
             #dungeon func
-        else:
-            print("Your are too tired to enter the dungeon")
+        
 
     
-    elif choice == 3:
-        end_day()
-        print("You have entered the inn")
-    elif choice == 4:
-        print()
-        #inn func
-    elif choice == 5:
-        main_menu()
+        elif choice == 3:
+            end_day()
+            print("You have entered the inn")
+
     
-    def end_day():
-        new_player.day += 1
-        new_player.actions = 0
-        print("You have Rested at the inn and started a new day, It is now day " + str(new_player.day))
-        main_movement()
+
+    elif new_player.actions == 5:
+        if choice == 3:
+            end_day()
+            print("You have entered the inn")
+        else:
+            print("You Have run out of actions for the day please rest at the inn")
+            main_movement()
+    
+    

@@ -6,56 +6,60 @@ global menu_sys_list
 menu_sys_list = []
 global turn_timer 
 
+
 def main_menu():
-    
-    while menu_sys_list == []:
-        menu_sys_list.append(main_menu)
+   
+    if menu_sys_list == []:
+        
         choice = menu(["Start","Options", "Controls","Exit", "Credits"])
         if choice == 1:
-            menu_sys_list.append(Start)
+            menu_sys_list.append("Start")
             Start()
-            break
+            
         elif choice == 2:
-            menu_sys_list.append(Options)
+            menu_sys_list.append("Options")
             Options()
             
         elif choice == 3:
-            menu_sys_list.append(Controls)
+            menu_sys_list.append("Controls")
             Controls()
             
         elif choice == 4:
-            menu_sys_list.append(Exit)
+            menu_sys_list.append("Exit")
             Exit()
             
         elif choice == 5:
-            menu_sys_list.append(Credits)
+            menu_sys_list.append("Credits")
             Credits()
             
-    choice = menu(["Options", "Controls","Exit", "Credits"])
-    if choice == 1:
-        menu_sys_list.append(Options)
-        Options()
-    elif choice == 2:
-        menu_sys_list.append(Controls)
-        Controls()
-    elif choice == 3:
-        menu_sys_list.append(Exit)
-        Exit()
-    elif choice == 4:
-        menu_sys_list.append(Credits)
-        Credits()
+    else:
+        choice = menu(["Options", "Controls","Exit", "Credits"])
+        if choice == 1:
+            menu_sys_list.append("Options")
+            Options()
+        elif choice == 2:
+            menu_sys_list.append("Controls")
+            Controls()
+        elif choice == 3:
+            menu_sys_list.append("Exit")
+            Exit()
+        elif choice == 4:
+            menu_sys_list.append("Credits")
+            Credits()
 
       
 def Start ():
     os.system('clear')
-    
-    print("You awake in this world, you don't know who you are, or where you are from. You don't know anything about this world. You don't even know your name. You are just a stranger in a strange land.")
     global new_player
+    print("You awake in this world, you don't know who you are, or where you are from. You don't know anything about this world. You don't even know your name. You are just a stranger in a strange land.")
+   
     new_player = game_player("", 100, [], 0, 10, 25)
     print("Okay " + new_player.name + " Welcome, Let me tell you a little about this world. It is a world filled with magic and excitment")
     print("\n")
-    
+    print(new_player.actions)
+
     main_movement()
+    print(new_player.actions)
     print(menu_sys_list)
 
 
@@ -153,13 +157,16 @@ def Credits():
 def main_movement():
     print("\n")
     choices = ["Shop", "Dungeon", "Inn", "Main Menu","Back"]
-    if menu(choices) == 1:
+    choice = menu(choices)
+    print(choice)
+    if choice == 1:
         if new_player.actions < 5:
             new_player.actions += 1
             shop()
         else:
             print("The Shop is Currently Closed")
-    elif choices == 2:
+    elif choice == 2:
+        print ("hi")
         if new_player.actions < 5:
             new_player.actions += 1
             print("You have entered the dungeon")
@@ -168,13 +175,13 @@ def main_movement():
             print("Your are too tired to enter the dungeon")
 
     
-    elif choices == 3:
+    elif choice == 3:
         end_day()
         print("You have entered the inn")
-    elif choices == 4:
+    elif choice == 4:
         print()
         #inn func
-    elif choices == 5:
+    elif choice == 5:
         main_menu()
     
     def end_day():

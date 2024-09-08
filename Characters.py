@@ -21,10 +21,11 @@ class NPC:
         print()
         
 class enemy():
-    def __init__(self, name, attack_DMG, attack_PW):
+    def __init__(self, name, attack_DMG, attack_PW, health):
         self.name = name
         self.attack_DMG = attack_DMG
         self.attack_PW = attack_PW
+        self.health = health
 
 
 def menu(choices):
@@ -58,15 +59,40 @@ def menu(choices):
     stdout.flush()
 
 def shop():
+  from Items import Item
+  global HealthPotion
   from menusys import menu_sys_list
   from menusys import main_movement
   #John Mcree real name 
   from menusys import new_player
   print("\n")
-  print(menu_sys_list)
+  
   beginning25 = ["Hey, Welcome to the shop. I couldnt bother to tell you my name or remember yours for a matter of fact, but you can call me Cass. I'm a shopkeeper, and I'm selling some stuff.","Hello, you can call me Cass, this is my shop, I'm selling some stuff.","Hey, I'm Cass, I'm a shopkeeper, and I'm selling some stuff."]
   beginning50 = ["Hello, welcome back " + new_player.name +"Here's what I got","Hey Friend, Here's What I Got Today"]
   beginning75 = ["Hey It's"]
   print(random.choice(beginning25))
-  main_movement()
+  choice = menu(["Buy","Sell","Leave"])
+  if choice == 1:
+    choice = menu(["Health Potion", "Black Sword", "Cloak", "Leave"])
+    if choice == 1:
+      if new_player.gold >= 10:
+        new_player.gold -= 10
+        HealthPotion = Item("Health Potion", 0, 0, 5, 25)
+        new_player.inventory.append(HealthPotion)
+        print("You bought a Health Potion")
+        print("You have " + str(new_player.gold) + " gold")
+        main_movement()
+      else:
+        choice = menu(["Buy","Sell","Leave"])
+        
+  elif choice == 2:
+    print("\n")
+    print("What do you want to sell?")
+    choice = menu(new_player.inventory)
+  elif choice == 3:
+    print("\n")
+    print("Goodbye")
+    main_movement()
+  
+  
   

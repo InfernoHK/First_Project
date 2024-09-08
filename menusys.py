@@ -2,6 +2,7 @@ from Characters import menu
 import os
 from Player import game_player
 from Characters import shop
+import random
 global menu_sys_list 
 menu_sys_list = []
 global turn_timer 
@@ -39,7 +40,7 @@ def main_menu():
             Credits()
             
     else:
-        choice = menu(["Options", "Controls","Exit", "Credits"])
+        choice = menu(["Options", "Controls","Exit", "Credits", "Inventory"])
         if choice == 1:
             menu_sys_list.append("Options")
             Options()
@@ -52,6 +53,9 @@ def main_menu():
         elif choice == 4:
             menu_sys_list.append("Credits")
             Credits()
+        elif  choice == 5:
+            menu_sys_list.append("Inventory")
+            Inventory()
 
       
 def Start ():
@@ -73,26 +77,41 @@ def Options():
     os.system('clear')
     print("No Options Currently Available")
     print("\n")
-    choice = menu(["Start","Options", "Controls","Exit", "Credits"])
-    if choice == 1:
-        menu_sys_list.append(Start)
-        Start()
-        
-    elif choice == 2:
-        menu_sys_list.append(Options)
-        Options()
+    if menu_sys_list == []:
+        choice = menu(["Start","Options", "Controls","Exit", "Credits"])
+        if choice == 1:
+            menu_sys_list.append(Start)
+            Start()
             
-    elif choice == 3:
-        menu_sys_list.append(Controls)
-        Controls()
-            
-    elif choice == 4:
-        menu_sys_list.append(Exit)
-        Exit()
-            
-    elif choice == 5:
-        menu_sys_list.append(Credits)
-        Credits()
+        elif choice == 2:
+            menu_sys_list.append(Options)
+            Options()
+                
+        elif choice == 3:
+            menu_sys_list.append(Controls)
+            Controls()
+                
+        elif choice == 4:
+            menu_sys_list.append(Exit)
+            Exit()
+                
+        elif choice == 5:
+            menu_sys_list.append(Credits)
+            Credits()
+    else:
+        choice = menu(["Options", "Controls","Exit", "Credits"])
+        if choice == 1:
+            menu_sys_list.append("Options")
+            Options()
+        elif choice == 2:
+            menu_sys_list.append("Controls")
+            Controls()
+        elif choice == 3:
+            menu_sys_list.append("Exit")
+            Exit()
+        elif choice == 4:
+            menu_sys_list.append("Credits")
+            Credits()
 
 def Controls():
     os.system('clear')
@@ -102,6 +121,7 @@ def Controls():
     print("Enter to Select Choice")
     print("Select Inventory to Open Inventory")
     print("\n")
+    
     choice = menu(["Start","Options", "Controls","Exit", "Credits"])
     if choice == 1:
         menu_sys_list.append(Start)
@@ -162,7 +182,7 @@ def Credits():
 
 def main_movement():
     print("\n")
-    choices = ["Shop", "Dungeon", "Inn", "Main Menu",]
+    choices = ["Shop", "Dungeon", "Inn", "Main Menu", "Inventory"]
     choice = menu(choices)
     print(choice)
     if choice == 4:
@@ -176,7 +196,7 @@ def main_movement():
         elif choice == 2:
             new_player.actions += 1
             print("You have entered the dungeon")
-            #dungeon func
+            dungeon()
         
 
     
@@ -184,7 +204,8 @@ def main_movement():
             end_day()
             print("You have entered the inn")
 
-    
+        elif choice == 5:
+            Inventory()
 
     elif new_player.actions == 5:
         if choice == 3:
@@ -194,4 +215,21 @@ def main_movement():
             print("You Have run out of actions for the day please rest at the inn")
             main_movement()
     
-    
+def Inventory():
+    print(str(new_player.inventory))
+    print("You have " + str(new_player.gold) + " gold")
+    print("You have " + str(new_player.health) + " health")
+
+def dungeon():
+    import random
+    from Characters import enemy
+    enemy_list = []
+    goblin = enemy("Globin", random.randint(5,20), random.randint(1,10), random.randint(5,50))
+
+    enemy_list.append(goblin)
+    enemy_list.append(goblin)
+    enemy_list.append(goblin)
+    enemy_first = random.choice(enemy_list)
+    print("You encounter a " + enemy_first.name)
+    print(" It has " + str(enemy_first.health) + " Health, " + str(enemy_first.attack_DMG) + " AD " + str(enemy_first.attack_PW) + " AP")
+

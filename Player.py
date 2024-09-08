@@ -3,7 +3,7 @@ class game_player:
         print("*He's right, what is my name?*")
         self.name = input("What is Your Name You Have Chosen Citizen? ")
         self.health = health
-        self.inventory = inventory
+        self.inventory = []
         self.AP = AP
         self.AD = AD
         self.gold = gold

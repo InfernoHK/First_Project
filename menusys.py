@@ -216,9 +216,33 @@ def main_movement():
             main_movement()
     
 def Inventory():
-    print(str(new_player.inventory))
+    os.system('clear')
+    print(" You Have the Follwing items")
+    for thing in new_player.inventory:
+        print(str(thing.name))
+    print("\n")
+   
     print("You have " + str(new_player.gold) + " gold")
     print("You have " + str(new_player.health) + " health")
+    print("Would you like to use any items? ")
+    choice = menu(["Yes", "No"])
+    if choice == 1:
+        print("What would you like to use? ")
+        
+        choice = menu([new_player.inventory])
+        if choice == 1:
+            new_player.health += 10
+            new_player.inventory.remove(new_player.inventory[0])
+            
+       
+
+    choice = menu(["Main Menu", "Town", "Exit"])
+    if choice == 1:
+        main_menu()
+    elif choice == 2:
+        main_movement()
+    elif choice == 3:
+        exit()
 
 def dungeon():
     import random

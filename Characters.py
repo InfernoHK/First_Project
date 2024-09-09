@@ -17,8 +17,7 @@ class NPC:
         self.name = name
         self.friendly_level = friendly_level
 
-    def talk_to_player(self, player_name):
-        print()
+    
         
 class enemy():
     def __init__(self, name, attack_DMG, attack_PW, health):
@@ -77,6 +76,7 @@ def shop():
     if choice == 1:
       if new_player.gold >= 10:
         new_player.gold -= 10
+    
         HealthPotion = Item("Health Potion", 0, 0, 5, 25)
         new_player.inventory.append(HealthPotion)
         print("You bought a Health Potion")

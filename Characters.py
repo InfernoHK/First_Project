@@ -5,6 +5,7 @@ from ansi.color import fg
 from ansi import cursor
 import random
 from Player import game_player
+
  
 
 
@@ -20,11 +21,15 @@ class NPC:
     
         
 class enemy():
-    def __init__(self, name, attack_DMG, attack_PW, health):
-        self.name = name
-        self.attack_DMG = attack_DMG
-        self.attack_PW = attack_PW
-        self.health = health
+  def __init__(self, name, attack_DMG, attack_PW, health):
+    self.name = name
+    self.attack_DMG = attack_DMG
+    self.attack_PW = attack_PW
+    self.health = health
+  def attack(self, target):
+    target.health -= (self.attack_DMG + self.attack_PW * 1.2)
+    print(f"{self.name} attacks for {self.attack_DMG} damage!")
+    
 
 
 def menu(choices):
@@ -32,7 +37,7 @@ def menu(choices):
   pointer = fg.boldblue('>')
   for choice in choices:
     print(choice)
-  print(cursor.hide()+cursor.up()*(len(choices))+pointer, end='   ')
+  print(cursor.hide()+cursor.up()*(len(choices))+pointer, end='    ')
   stdout.flush()
 
   pos = 1
@@ -65,7 +70,7 @@ def shop():
   #John Mcree real name 
   from menusys import new_player
   print("\n")
-  
+  os.system("clear")
   beginning25 = ["Hey, Welcome to the shop. I couldnt bother to tell you my name or remember yours for a matter of fact, but you can call me Cass. I'm a shopkeeper, and I'm selling some stuff.","Hello, you can call me Cass, this is my shop, I'm selling some stuff.","Hey, I'm Cass, I'm a shopkeeper, and I'm selling some stuff."]
   beginning50 = ["Hello, welcome back " + new_player.name +"Here's what I got","Hey Friend, Here's What I Got Today"]
   beginning75 = ["Hey It's"]
@@ -78,10 +83,13 @@ def shop():
         new_player.gold -= 10
     
         HealthPotion = Item("Health Potion", 0, 0, 5, 25)
-        new_player.inventory.append(HealthPotion)
+        new_player.inventory.append(HealthPotion.name)
+        new_player.inventory.append("test")
         print("You bought a Health Potion")
         print("You have " + str(new_player.gold) + " gold")
         main_movement()
+      
+      
       else:
         choice = menu(["Buy","Sell","Leave"])
         

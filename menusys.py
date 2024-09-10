@@ -219,7 +219,7 @@ def Inventory():
     os.system('clear')
     print(" You Have the Follwing items")
     for thing in new_player.inventory:
-        print(str(thing.name))
+        print(thing)
     print("\n")
    
     print("You have " + str(new_player.gold) + " gold")
@@ -228,32 +228,91 @@ def Inventory():
     choice = menu(["Yes", "No"])
     if choice == 1:
         print("What would you like to use? ")
+        new_player.inventory.append("")
         
-        choice = menu([new_player.inventory])
+        choice = menu(new_player.inventory)
+        
         if choice == 1:
-            new_player.health += 10
-            new_player.inventory.remove(new_player.inventory[0])
+            
+            new_player.health =  new_player.health + new_player.inventory[choice - 1].healing 
+            new_player.inventory.remove(new_player.inventory[choice -1])
             
        
-
-    choice = menu(["Main Menu", "Town", "Exit"])
-    if choice == 1:
-        main_menu()
-    elif choice == 2:
+    else:
         main_movement()
-    elif choice == 3:
-        exit()
 
 def dungeon():
     import random
     from Characters import enemy
+    os.system('clear')
+    floor = 1
     enemy_list = []
     goblin = enemy("Globin", random.randint(5,20), random.randint(1,10), random.randint(5,50))
 
     enemy_list.append(goblin)
     enemy_list.append(goblin)
     enemy_list.append(goblin)
-    enemy_first = random.choice(enemy_list)
-    print("You encounter a " + enemy_first.name)
-    print(" It has " + str(enemy_first.health) + " Health, " + str(enemy_first.attack_DMG) + " AD " + str(enemy_first.attack_PW) + " AP")
+    enemy_first_0 = random.choice(enemy_list)
+    print("You encounter a " + enemy_first_0.name)
+    print(" It has " + str(enemy_first_0.health) + " Health, " + str(enemy_first_0.attack_DMG) + " AD " + str(enemy_first_0.attack_PW) + " AP")
+    
+    if floor == 10:
+        print("You have reached the top floor of the dungeon solve this to win the game")
+    else:
+        print("You have " + str(new_player.health) + " health")
+        print("You have " + str(new_player.gold) + " gold")
+        print("You are on the " + str(floor) + " floor")
+        fight(enemy_first_0,floor)
+
+
+def fight(enemy_first,floor):
+    from Characters import enemy
+    print("\n")
+    choice = menu(["Attack", "Defend", "Flee", "Inventory"])
+    if enemy_first.health <= 0:
+        print("You have defeated the " + enemy_first.name)
+        new_player.gold += (enemy_first.attack_DMG * enemy_first.attack_PW * random.choice([.8, 1.2, .5 ,.4]))
+        print("You have " + str(new_player.gold) + " gold")
+        print("You have " + str(new_player.health) + " health")
+        floor +=1 
+        dungeon()
+
+    elif new_player.health <= 0:
+        print("You have died")
+        exit()
+    elif choice == 1:
+        enemy_first.health -= (new_player.AD + new_player.AP * 1.5)
+        print("You have attacked the " + enemy_first.name)
+        print("It has " + str(enemy_first.health) + " Health")
+        enemy_first.attack(new_player)
+        print("You have " + str(new_player.health) + " Health")
+        fight(enemy_first,floor)
+    elif choice == 2:
+        new_player.health -= enemy_first.attack_DMG * .25
+        print("You have defended against the " + enemy_first.name)
+        print("It has " + str(enemy_first.health) + " Health")
+        enemy_first.attack(new_player)
+        print("You have " + str(new_player.health) + " Health")
+        fight(enemy_first,floor)
+
+    elif choice == 3:
+        print("You Attempt to Flee " + enemy_first.name)
+        random.randint(1,10)
+        
+
+        if random.randint(1,10) > 5:
+            print("You have escaped from the " + enemy_first.name)
+            main_movement()
+        else:
+            print("Flee Failed")
+            print("You have " + str(new_player.health) + " Health")
+            enemy_first.attack(new_player)
+            fight(enemy_first,floor)
+    elif choice == 4:
+        Inventory()
+
+    else:
+        fight(enemy_first,floor)
+   
+
 

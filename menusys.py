@@ -12,6 +12,7 @@ def end_day():
         new_player.day += 1
         new_player.actions = 0
         print("You have Rested at the inn and started a new day, It is now day " + str(new_player.day))
+        new_player.health = 100
         main_movement()
 
 def main_menu():
@@ -24,11 +25,11 @@ def main_menu():
             Start()
             
         elif choice == 2:
-            menu_sys_list.append("Options")
+            
             Options()
             
         elif choice == 3:
-            menu_sys_list.append("Controls")
+            
             Controls()
             
         elif choice == 4:
@@ -36,7 +37,7 @@ def main_menu():
             Exit()
             
         elif choice == 5:
-            menu_sys_list.append("Credits")
+            
             Credits()
             
     else:
@@ -240,12 +241,13 @@ def Inventory():
        
     else:
         main_movement()
-
+floor = 1
 def dungeon():
+    from wordle import playworlde
     import random
     from Characters import enemy
     os.system('clear')
-    floor = 1
+    
     enemy_list = []
     goblin = enemy("Globin", random.randint(5,20), random.randint(1,10), random.randint(5,50))
 
@@ -258,6 +260,8 @@ def dungeon():
     
     if floor == 10:
         print("You have reached the top floor of the dungeon solve this to win the game")
+        playworlde()
+        
     else:
         print("You have " + str(new_player.health) + " health")
         print("You have " + str(new_player.gold) + " gold")
@@ -268,51 +272,60 @@ def dungeon():
 def fight(enemy_first,floor):
     from Characters import enemy
     print("\n")
-    choice = menu(["Attack", "Defend", "Flee", "Inventory"])
     if enemy_first.health <= 0:
         print("You have defeated the " + enemy_first.name)
         new_player.gold += (enemy_first.attack_DMG * enemy_first.attack_PW * random.choice([.8, 1.2, .5 ,.4]))
         print("You have " + str(new_player.gold) + " gold")
         print("You have " + str(new_player.health) + " health")
         floor +=1 
-        dungeon()
+        choice = menu(["Continue", "Leave"])
+        if choice == 1:
+            dungeon()
+        elif choice == 2:
+            main_movement()
 
     elif new_player.health <= 0:
         print("You have died")
         exit()
-    elif choice == 1:
-        enemy_first.health -= (new_player.AD + new_player.AP * 1.5)
-        print("You have attacked the " + enemy_first.name)
-        print("It has " + str(enemy_first.health) + " Health")
-        enemy_first.attack(new_player)
-        print("You have " + str(new_player.health) + " Health")
-        fight(enemy_first,floor)
-    elif choice == 2:
-        new_player.health -= enemy_first.attack_DMG * .25
-        print("You have defended against the " + enemy_first.name)
-        print("It has " + str(enemy_first.health) + " Health")
-        enemy_first.attack(new_player)
-        print("You have " + str(new_player.health) + " Health")
-        fight(enemy_first,floor)
 
-    elif choice == 3:
-        print("You Attempt to Flee " + enemy_first.name)
-        random.randint(1,10)
+    elif new_player.health >= 0 and enemy_first.health >= 0:   
+        choice = menu(["Attack", "Defend", "Flee", "Inventory"])
         
 
-        if random.randint(1,10) > 5:
-            print("You have escaped from the " + enemy_first.name)
-            main_movement()
-        else:
-            print("Flee Failed")
-            print("You have " + str(new_player.health) + " Health")
+        
+        if choice == 1:
+            enemy_first.health -= (new_player.AD + new_player.AP * 1.5)
+            print("You have attacked the " + enemy_first.name)
+            print("It has " + str(enemy_first.health) + " Health")
             enemy_first.attack(new_player)
+            print("You have " + str(new_player.health) + " Health")
             fight(enemy_first,floor)
-    elif choice == 4:
-        Inventory()
+        elif choice == 2:
+            new_player.health -= enemy_first.attack_DMG * .25
+            print("You have defended against the " + enemy_first.name)
+            print("It has " + str(enemy_first.health) + " Health")
+            enemy_first.attack(new_player)
+            print("You have " + str(new_player.health) + " Health")
+            fight(enemy_first,floor)
 
-    else:
-        fight(enemy_first,floor)
+        elif choice == 3:
+            print("You Attempt to Flee " + enemy_first.name)
+            random.randint(1,10)
+            
+
+            if random.randint(1,10) > 5:
+                print("You have escaped from the " + enemy_first.name)
+                main_movement()
+            else:
+                print("Flee Failed")
+                print("You have " + str(new_player.health) + " Health")
+                enemy_first.attack(new_player)
+                fight(enemy_first,floor)
+        elif choice == 4:
+            Inventory()
+
+        else:
+            fight(enemy_first,floor)
    
 
 

@@ -74,6 +74,7 @@ def shop():
   beginning25 = ["Hey, Welcome to the shop. I couldnt bother to tell you my name or remember yours for a matter of fact, but you can call me Cass. I'm a shopkeeper, and I'm selling some stuff.","Hello, you can call me Cass, this is my shop, I'm selling some stuff.","Hey, I'm Cass, I'm a shopkeeper, and I'm selling some stuff."]
   beginning50 = ["Hello, welcome back " + new_player.name +"Here's what I got","Hey Friend, Here's What I Got Today"]
   beginning75 = ["Hey It's"]
+  shopkeeper = NPC("Cass", 0)
   print(random.choice(beginning25))
   choice = menu(["Buy","Sell","Leave"])
   if choice == 1:
@@ -83,7 +84,7 @@ def shop():
         new_player.gold -= 10
     
         HealthPotion = Item("Health Potion", 0, 0, 5, 25)
-        new_player.inventory.append(HealthPotion.name)
+        new_player.inventory.append(HealthPotion)
         new_player.inventory.append("test")
         print("You bought a Health Potion")
         print("You have " + str(new_player.gold) + " gold")
